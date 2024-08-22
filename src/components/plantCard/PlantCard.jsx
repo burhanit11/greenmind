@@ -2,6 +2,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import frame7 from "../../assets/Frame 7.png";
 import frame8 from "../../assets/Frame 8.png";
 import frame9 from "../../assets/Frame 9.png";
+import { useNavigate } from "react-router-dom";
 
 const data = [
   {
@@ -22,6 +23,8 @@ const data = [
 ];
 
 const PlantCard = () => {
+  const navigation = useNavigate();
+
   return (
     <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8">
       <div className="sm:pt-10  md:mx-0 mx-5">
@@ -31,7 +34,10 @@ const PlantCard = () => {
         <p className="text-gray-500 py-5">
           Easiest way to healthy life by buying your favorite plants
         </p>
-        <button className="bg-primary flex justify-center items-center text-black p-5 rounded-md text-md">
+        <button
+          onClick={() => navigation("/products")}
+          className="bg-primary flex justify-center items-center text-black p-5 rounded-md text-md"
+        >
           See More <FaArrowRightLong className="mx-2" />
         </button>
       </div>
