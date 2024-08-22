@@ -33,8 +33,8 @@ const Header = () => {
   return (
     <div>
       <header className="relative w-full border-b bg-white pb-4">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2">
-          <div className="inline-flex items-center space-x-6 gap-16">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 ">
+          <div className="inline-flex items-center space-x-6 gap-16 py-4">
             <span className="text-lg font-bold">Greenmind</span>
             <div className="hidden lg:block ">
               <ul className="inline-flex space-x-8">
@@ -42,7 +42,7 @@ const Header = () => {
                   <li key={item.name}>
                     <a
                       href={item.href}
-                      className="text-lg font-semibold text-gray-800 hover:text-gray-900"
+                      className="text-md font-medium text-gray-800 hover:text-gray-900"
                     >
                       {item.name}
                     </a>
@@ -56,7 +56,7 @@ const Header = () => {
             <div className="flex gap-8 text-xl items-center justify-center">
               <MdOutlineShoppingCart />
               <FaRegUser />
-              <button className="bg-black text-white p-2 rounded-md text-sm">
+              <button className="bg-primary text-black py-2 px-4 rounded-md text-sm font-semibold">
                 {" "}
                 Contact
               </button>
