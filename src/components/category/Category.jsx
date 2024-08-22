@@ -28,7 +28,7 @@ const Category = () => {
         Find what you are Looking for
       </p>
       <div className="bg-primary mt-20">
-        <div className="max-w-6xl mx-auto pb-20 grid grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto pb-20 grid md:grid-cols-3 grid-cols-1 gap-8">
           <div className="-mt-12">
             <img src={frame36} alt="" />
             <h1 className="py-3 text-lg font-semibold text-center">

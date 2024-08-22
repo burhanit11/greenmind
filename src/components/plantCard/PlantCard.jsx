@@ -20,10 +20,11 @@ const data = [
     price: "130$",
   },
 ];
+
 const PlantCard = () => {
   return (
-    <div className="max-w-6xl mx-auto py-10 grid grid-cols-4 gap-8">
-      <div className="pt-10">
+    <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8">
+      <div className="sm:pt-10  md:mx-0 mx-5">
         <h1 className="text-xl font-extrabold tracking-tight text-black md:text-2xl lg:text-4xl">
           Best Selling Plants
         </h1>
@@ -35,9 +36,9 @@ const PlantCard = () => {
         </button>
       </div>
       {data.map((item, i) => (
-        <div key={i}>
+        <div key={i} className="flex flex-col md:justify-start justify-center ">
           <img src={item.img} alt="" />
-          <div className="flex justify-between pt-5">
+          <div className="flex md:justify-between md:mx-0 sm:mx-20 gap-4 justify-center pt-5">
             <div>
               <h1 className="text-lg font-medi text-black">{item.title}</h1>
               <p className="text-sm text-gray-500">{item.price}</p>

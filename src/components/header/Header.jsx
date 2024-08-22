@@ -3,10 +3,17 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
+import {
+  // Link,
+  // Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+} from "react-scroll";
 
 ("use client");
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const menuItems = [
   {
@@ -25,14 +32,50 @@ const menuItems = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 0) {
+      // Adjust this value as needed
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    Events.scrollEvent.register("begin", function () {
+      console.log("begin", arguments);
+    });
+
+    Events.scrollEvent.register("end", function () {
+      console.log("end", arguments);
+    });
+
+    scrollSpy.update();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      Events.scrollEvent.remove("begin");
+      Events.scrollEvent.remove("end");
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <div>
-      <header className="relative w-full border-b bg-white pb-4">
+    <div className="">
+      <header
+        // className="relative w-full  bg-white "
+        className={`${
+          isScrolled ? " shadow-lg bg-primary top-0 " : "bg-white "
+        }   fixed w-full z-10 animate__animated animate__slideInDown `}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 ">
           <div className="inline-flex items-center space-x-6 gap-16 py-4">
             <span className="text-lg font-bold">Greenmind</span>
@@ -42,7 +85,7 @@ const Header = () => {
                   <li key={item.name}>
                     <a
                       href={item.href}
-                      className="text-md font-medium text-gray-800 hover:text-gray-900"
+                      className="text-md font-medium text-black hover:text-gray-900"
                     >
                       {item.name}
                     </a>
@@ -56,8 +99,11 @@ const Header = () => {
             <div className="flex gap-8 text-xl items-center justify-center">
               <MdOutlineShoppingCart />
               <FaRegUser />
-              <button className="bg-primary text-black py-2 px-4 rounded-md text-sm font-semibold">
-                {" "}
+              <button
+                className={`${
+                  isScrolled ? "bg-white" : "bg-primary"
+                }  text-black py-2 px-4 rounded-md text-sm font-semibold`}
+              >
                 Contact
               </button>
             </div>

@@ -32,7 +32,7 @@ const AboutUs = () => {
       <p className="text-gray-500 text-center py-5">
         Order now and appreciate the beauty of nature
       </p>
-      <div className="grid grid-cols-3 mt-5 gap-8">
+      <div className="grid md:grid-cols-3 grid-cols-1 mt-5 gap-8">
         {data.map((item, i) => (
           <div className="flex flex-col justify-center items-center" key={i}>
             <div className="h-24 w-24 rounded-full bg-primary flex justify-center items-center">
