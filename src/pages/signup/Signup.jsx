@@ -1,6 +1,31 @@
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../../redux/userSlices/authUser";
+import { toast } from "react-toastify";
 
 const Signup = () => {
+  const [input, setInput] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+  const navigation = useNavigate();
+  const dispatch = useDispatch();
+
+  const handelInput = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addUser(input));
+    navigation("/");
+    toast.success("Signup success!");
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
@@ -10,28 +35,29 @@ const Signup = () => {
           </h2>
           <p className="mt-2 text-base text-gray-600">
             Already have an account?{" "}
-            <a
-              href="#"
-              title=""
+            <button
+              onClick={() => navigation("/login")}
               className="font-medium text-black transition-all duration-200 hover:underline"
             >
               Sign In
-            </a>
+            </button>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form onSubmit={handelSubmit} className="mt-8">
             <div className="space-y-5">
               <div>
                 <label
                   htmlFor="name"
                   className="text-base font-medium text-gray-900"
                 >
-                  {" "}
                   Full Name{" "}
                 </label>
                 <div className="mt-2">
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
+                    name="fullName"
+                    value={input.fullName}
+                    onChange={handelInput}
                     placeholder="Full Name"
                     id="name"
                   ></input>
@@ -49,6 +75,9 @@ const Signup = () => {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="email"
+                    name="email"
+                    value={input.email}
+                    onChange={handelInput}
                     placeholder="Email"
                     id="email"
                   ></input>
@@ -60,7 +89,6 @@ const Signup = () => {
                     htmlFor="password"
                     className="text-base font-medium text-gray-900"
                   >
-                    {" "}
                     Password{" "}
                   </label>
                 </div>
@@ -68,6 +96,9 @@ const Signup = () => {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
+                    name="password"
+                    value={input.password}
+                    onChange={handelInput}
                     placeholder="Password"
                     id="password"
                   ></input>
@@ -75,7 +106,7 @@ const Signup = () => {
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Create Account <FaArrowRight className="ml-2" size={16} />

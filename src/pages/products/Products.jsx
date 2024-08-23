@@ -8,58 +8,30 @@ import { addToCart, removeFromCart } from "../../redux/userSlices/cartSlice";
 
 const data = [
   {
+    id: 1,
     title: "Natural Plants",
     img: frame7,
     price: "130$",
   },
-  {
-    title: "Natural Plants",
-    img: frame8,
-    price: "130$",
-  },
-  {
-    title: "Natural Plants",
-    img: frame9,
-    price: "130$",
-  },
-  {
-    title: "Natural Plants",
-    img: frame7,
-    price: "130$",
-  },
-  {
-    title: "Natural Plants",
-    img: frame8,
-    price: "130$",
-  },
-  {
-    title: "Natural Plants",
-    img: frame9,
-    price: "130$",
-  },
-  {
-    title: "Natural Plants",
-    img: frame7,
-    price: "130$",
-  },
-  {
-    title: "Natural Plants",
-    img: frame8,
-    price: "130$",
-  },
+  { id: 2, title: "Natural Plants", img: frame8, price: 20 },
+  { id: 3, title: "Natural Plants", img: frame9, price: 50 },
+  { id: 4, title: "Natural Plants", img: frame7, price: 60 },
+  { id: 5, title: "Natural Plants", img: frame8, price: 100 },
+  { id: 6, title: "Natural Plants", img: frame9, price: 10 },
+  { id: 7, title: "Natural Plants", img: frame7, price: 5 },
+  { id: 8, title: "Natural Plants", img: frame8, price: 15 },
 ];
 const Products = () => {
   const products = useSelector((state) => state.products);
-  const cart = useSelector((state) => state.cart);
-  console.log(cart.length, "???");
+  // const cart = useSelector((state) => state.cart);
+  // console.log(cart.length, "???");
   const dispatch = useDispatch();
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
   };
-  const handleRemoveToCart = (product) => {
-    console.log(product);
-    dispatch(removeFromCart(product));
+  const handleRemoveToCart = (id) => {
+    dispatch(removeFromCart(id));
   };
   return (
     <>
@@ -74,7 +46,7 @@ const Products = () => {
             <div className="flex md:justify-between md:mx-0 sm:mx-20 gap-4 justify-center pt-5">
               <div>
                 <h1 className="text-lg font-medi text-black">{item.title}</h1>
-                <p className="text-sm text-gray-500">{item.price}</p>
+                <p className="text-sm text-gray-500">{item.price}$</p>
               </div>
               <div className="flex flex-row gap-2">
                 <button
@@ -85,7 +57,7 @@ const Products = () => {
                   {/* <FaArrowRightLong className="mx-2" /> */}
                 </button>
                 <button
-                  onClick={() => handleRemoveToCart(item.path)}
+                  onClick={() => handleRemoveToCart(item.id)}
                   className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
                 >
                   remove to card

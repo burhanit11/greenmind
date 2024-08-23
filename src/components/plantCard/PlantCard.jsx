@@ -3,6 +3,8 @@ import frame7 from "../../assets/Frame 7.png";
 import frame8 from "../../assets/Frame 8.png";
 import frame9 from "../../assets/Frame 9.png";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/userSlices/cartSlice";
 
 const data = [
   {
@@ -25,6 +27,11 @@ const data = [
 const PlantCard = () => {
   const navigation = useNavigate();
 
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
   return (
     <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8">
       <div className="sm:pt-10  md:mx-0 mx-5">
@@ -50,7 +57,10 @@ const PlantCard = () => {
               <p className="text-sm text-gray-500">{item.price}</p>
             </div>
             <div>
-              <button className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md">
+              <button
+                onClick={() => handleAddToCart(item)}
+                className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
+              >
                 Add to card
                 {/* <FaArrowRightLong className="mx-2" /> */}
               </button>

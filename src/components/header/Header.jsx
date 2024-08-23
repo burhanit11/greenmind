@@ -14,6 +14,8 @@ import {
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import AddCarts from "../addCarts/AddCarts";
+import Adduser from "../addUser/Adduser";
 const menuItems = [
   {
     name: "Home",
@@ -35,6 +37,8 @@ const menuItems = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserOpen, setIsUserOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
@@ -47,7 +51,7 @@ const Header = () => {
     }
   };
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart.items);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -72,6 +76,12 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+  const toggleUser = () => {
+    setIsUserOpen(!isUserOpen);
   };
 
   return (
@@ -103,8 +113,26 @@ const Header = () => {
 
           <div className="hidden lg:block ">
             <div className="flex gap-8 text-xl items-center justify-center">
-              ({cart.length}) <MdOutlineShoppingCart />
-              <FaRegUser />
+              <button
+                onClick={toggleCart}
+                className="flex cursor-pointer text-xl   justify-center"
+              >
+                <span
+                  className={`${
+                    isScrolled ? "bg-white" : "bg-primary"
+                  } px-[3px] py-[2px] text-sm text-red-600 -mr-7 -mt-4 rounded-full`}
+                >
+                  ({cart.length})
+                </span>{" "}
+                <MdOutlineShoppingCart />
+              </button>
+              <button
+                onClick={toggleUser}
+                className="flex cursor-pointer text-xl   justify-center"
+              >
+                <FaRegUser />
+              </button>
+
               <button
                 onClick={() => navigation("/contact")}
                 className={`${
@@ -168,6 +196,8 @@ const Header = () => {
           )}
         </div>
       </header>
+      {isCartOpen && <AddCarts toggleCart={toggleCart} />}
+      {isUserOpen && <Adduser toggleUser={toggleUser} />}
     </div>
   );
 };
