@@ -8,23 +8,26 @@ import { addToCart } from "../../redux/userSlices/cartSlice";
 
 const data = [
   {
+    id: 20,
     title: "Natural Plants",
     img: frame7,
-    price: "130$",
+    price: 130,
   },
   {
+    id: 21,
     title: "Natural Plants",
     img: frame8,
-    price: "130$",
+    price: 110,
   },
   {
+    id: 22,
     title: "Natural Plants",
     img: frame9,
-    price: "130$",
+    price: 180,
   },
 ];
 
-const PlantCard = () => {
+const PlantCard = ({ product }) => {
   const navigation = useNavigate();
 
   const dispatch = useDispatch();
@@ -32,6 +35,7 @@ const PlantCard = () => {
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
+  console.log(product?.products, "???????");
   return (
     <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8">
       <div className="sm:pt-10  md:mx-0 mx-5">
@@ -48,13 +52,13 @@ const PlantCard = () => {
           See More <FaArrowRightLong className="mx-2" />
         </button>
       </div>
-      {data.map((item, i) => (
+      {product?.products?.map((item, i) => (
         <div key={i} className="flex flex-col md:justify-start justify-center ">
           <img src={item.img} alt="" />
           <div className="flex md:justify-between md:mx-0 sm:mx-20 gap-4 justify-center pt-5">
             <div>
               <h1 className="text-lg font-medi text-black">{item.title}</h1>
-              <p className="text-sm text-gray-500">{item.price}</p>
+              <p className="text-sm text-gray-500">{item.price}$</p>
             </div>
             <div>
               <button

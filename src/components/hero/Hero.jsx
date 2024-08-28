@@ -2,8 +2,29 @@ import { IoSearch } from "react-icons/io5";
 import bgImg from "../../assets/greenmindbg.png";
 import arrow186 from "../../assets/Vector_186.png";
 import arrow187 from "../../assets/Vector_187.png";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../../utils/constran";
+import PlantCard from "../plantCard/PlantCard";
 
 const Hero = () => {
+  const [query, setQuery] = useState("");
+
+  const [product, setProdect] = useState([]);
+
+  useEffect(() => {
+    handleSearchbar();
+  }, []);
+  const handleSearchbar = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/products/getAllProducts`, {
+        params: { query: query },
+      });
+      setProdect(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="pt-20">
       {/* Hero Section */}
@@ -25,11 +46,16 @@ const Hero = () => {
             <div className="flex  sm:max-w-lg  md:w-full  mx-auto  rounded-md font-sans  border-black/30 bg-white px-3  py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50">
               <input
                 className="border-none w-full text-lg   focus:outline-none placeholder:text-gray-600 bg-transparent"
-                // type="email"
+                type="text"
                 placeholder="What are you look for ?"
                 id="email"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
               ></input>
-              <span className="bg-primary rounded-md p-3">
+              <span
+                className="bg-primary rounded-md p-3"
+                onClick={handleSearchbar}
+              >
                 <IoSearch className="text-xl" />
               </span>
             </div>
@@ -53,6 +79,8 @@ const Hero = () => {
           />
         </div>
       </div>
+
+      <PlantCard product={product} />
     </div>
   );
 };

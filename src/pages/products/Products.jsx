@@ -5,27 +5,50 @@ import frame9 from "../../assets/Frame 9.png";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import { addToCart, removeFromCart } from "../../redux/userSlices/cartSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../../utils/constran";
 
-const data = [
-  {
-    id: 1,
-    title: "Natural Plants",
-    img: frame7,
-    price: "130$",
-  },
-  { id: 2, title: "Natural Plants", img: frame8, price: 20 },
-  { id: 3, title: "Natural Plants", img: frame9, price: 50 },
-  { id: 4, title: "Natural Plants", img: frame7, price: 60 },
-  { id: 5, title: "Natural Plants", img: frame8, price: 100 },
-  { id: 6, title: "Natural Plants", img: frame9, price: 10 },
-  { id: 7, title: "Natural Plants", img: frame7, price: 5 },
-  { id: 8, title: "Natural Plants", img: frame8, price: 15 },
-];
+// const data = [
+//   {
+//     id: 1,
+//     title: "Natural Plants",
+//     img: frame7,
+//     price: "130$",
+//   },
+//   { id: 2, title: "Natural Plants", img: frame8, price: 20 },
+//   { id: 3, title: "Natural Plants", img: frame9, price: 50 },
+//   { id: 4, title: "Natural Plants", img: frame7, price: 60 },
+//   { id: 5, title: "Natural Plants", img: frame8, price: 100 },
+//   { id: 6, title: "Natural Plants", img: frame9, price: 10 },
+//   { id: 7, title: "Natural Plants", img: frame7, price: 5 },
+//   { id: 8, title: "Natural Plants", img: frame8, price: 15 },
+// ];
 const Products = () => {
-  const products = useSelector((state) => state.products);
+  // const products = useSelector((state) => state.products);
+  const [product, setProdect] = useState([]);
   // const cart = useSelector((state) => state.cart);
   // console.log(cart.length, "???");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get(
+          `${API_BASE_URL}/products/getAllProducts`
+          //    {
+          //   headers: { "Content-Type": "application/json" },
+          // }
+        );
+        setProdect(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProduct();
+  }, []);
+  console.log(product, "????????????");
 
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
@@ -33,11 +56,12 @@ const Products = () => {
   const handleRemoveToCart = (id) => {
     dispatch(removeFromCart(id));
   };
+
   return (
     <>
       <Header />
       <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8 pt-20">
-        {data.map((item, i) => (
+        {product.products?.map((item, i) => (
           <div
             key={i}
             className="flex flex-col md:justify-start justify-center "

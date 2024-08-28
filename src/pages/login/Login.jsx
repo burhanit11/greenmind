@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../../redux/userSlices/authUser";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { API_BASE_URL } from "../../utils/constran";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -18,11 +20,21 @@ const Login = () => {
     setInput({ ...input, [name]: value });
   };
 
-  const handelSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addUser(input));
-    navigation("/");
-    toast.success("Login success!");
+  const handelSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const res = await axios.post(`${API_BASE_URL}/users/login`, input, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res.data.message);
+      dispatch(addUser(res.data));
+      navigation("/");
+      toast.success("Login success!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -94,7 +106,7 @@ const Login = () => {
               <div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full items-center justify-center rounded-md bg-primary px-3.5 py-2.5 font-semibold leading-7 text-black hover:bg-primary/80"
                 >
                   Get started <FaArrowRight className="ml-2" size={16} />
                 </button>

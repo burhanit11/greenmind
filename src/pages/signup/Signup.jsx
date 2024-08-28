@@ -4,13 +4,21 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../../redux/userSlices/authUser";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { API_BASE_URL } from "../../utils/constran";
 
 const Signup = () => {
   const [input, setInput] = useState({
-    fullName: "",
+    fullname: "",
+    username: "",
     email: "",
     password: "",
   });
+  const [avatar, setAvatar] = useState({
+    file: null,
+    url: "",
+  });
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
@@ -18,30 +26,64 @@ const Signup = () => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
+  const handelAvatar = (e) => {
+    setAvatar({
+      file: e.target.files[0],
+      url: URL.createObjectURL(e.target.files[0]),
+    });
+  };
 
-  const handelSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addUser(input));
-    navigation("/");
-    toast.success("Signup success!");
+  const handelSubmit = async (e) => {
+    const inputData = {
+      fullname: input.fullname,
+      username: input.username,
+      email: input.email,
+      password: input.password,
+      avatar: avatar.url,
+    };
+
+    console.log(avatar, "avatar");
+    console.log(inputData, "inputData");
+
+    try {
+      e.preventDefault();
+      const res = await axios.post(`${API_BASE_URL}/users/signup`, inputData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res.data);
+      dispatch(addUser(res.data));
+      navigation("/");
+      toast.success("Signup success!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2">
+    <div className="grid grid-cols-1 md:grid-cols-2">
       <div className="flex items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-          <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
-            Sign up
-          </h2>
-          <p className="mt-2 text-base text-gray-600">
-            Already have an account?{" "}
-            <button
-              onClick={() => navigation("/login")}
-              className="font-medium text-black transition-all duration-200 hover:underline"
-            >
-              Sign In
-            </button>
-          </p>
+          <div className="flex justify-between">
+            <div>
+              <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
+                Sign up
+              </h2>
+              <p className="mt-2 text-base text-gray-600">
+                Already have an account?{" "}
+                <button
+                  onClick={() => navigation("/login")}
+                  className="font-medium text-black transition-all duration-200 hover:underline"
+                >
+                  Sign In
+                </button>
+              </p>
+            </div>
+            <div>
+              <img src={avatar.url} alt="" className="h-40 rounded-md w-40" />
+            </div>
+          </div>
           <form onSubmit={handelSubmit} className="mt-8">
             <div className="space-y-5">
               <div>
@@ -55,10 +97,29 @@ const Signup = () => {
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
-                    name="fullName"
-                    value={input.fullName}
+                    name="fullname"
+                    value={input.fullname}
                     onChange={handelInput}
                     placeholder="Full Name"
+                    id="name"
+                  ></input>
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="username"
+                  className="text-base font-medium text-gray-900"
+                >
+                  username
+                </label>
+                <div className="mt-2">
+                  <input
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="text"
+                    name="username"
+                    value={input.username}
+                    onChange={handelInput}
+                    placeholder="username"
                     id="name"
                   ></input>
                 </div>
@@ -80,6 +141,25 @@ const Signup = () => {
                     onChange={handelInput}
                     placeholder="Email"
                     id="email"
+                  ></input>
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="avatar"
+                  className="text-base font-medium text-gray-900"
+                >
+                  Profile Image
+                </label>
+                <div className="mt-2">
+                  <input
+                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="file"
+                    // name="avatar"
+                    // value={avatar.url}
+                    onChange={handelAvatar}
+                    // placeholder="Email"
+                    id="avatar"
                   ></input>
                 </div>
               </div>
@@ -107,7 +187,7 @@ const Signup = () => {
               <div>
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  className="inline-flex w-full items-center justify-center rounded-md bg-primary px-3.5 py-2.5 font-semibold leading-7 text-black hover:bg-primary/80"
                 >
                   Create Account <FaArrowRight className="ml-2" size={16} />
                 </button>
@@ -154,7 +234,7 @@ const Signup = () => {
         <img
           className="mx-auto h-full w-full rounded-md object-cover"
           src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
-          alt=""
+          alt="logo"
         />
       </div>
     </div>

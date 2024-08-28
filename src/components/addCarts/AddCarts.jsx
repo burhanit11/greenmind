@@ -13,8 +13,6 @@ const AddCarts = ({ toggleCart }) => {
 
   const totalPrice = useSelector((state) => state.cart.totalPrice);
 
-  console.log(cart, "cart");
-
   const dispatch = useDispatch();
 
   const navigation = useNavigate();
@@ -25,8 +23,6 @@ const AddCarts = ({ toggleCart }) => {
   const handleRemoveToCart = (id) => {
     dispatch(removeFromCart(id));
   };
-
-  const id = "112";
 
   return (
     <div className="absolute max-w-xl inset-x-0 fixed  z-50 origin-top-right transform p-2 transition">
@@ -79,7 +75,7 @@ const AddCarts = ({ toggleCart }) => {
                     <div className="flex flex-row gap-2">
                       <button
                         onClick={() =>
-                          navigation(`/products/cartdetails/${id}`)
+                          navigation(`/products/cartdetails/${item.id}`)
                         }
                         className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
                       >

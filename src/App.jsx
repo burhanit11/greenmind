@@ -4,7 +4,7 @@ import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Hero from "./components/hero/Hero";
 import Newsletter from "./components/newsletter/Newsletter";
-import PlantCard from "./components/plantCard/PlantCard";
+// import PlantCard from "./components/plantCard/PlantCard";
 import Testimonial from "./components/testimonial/Testimonial";
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
     <>
       <Header />
       <Hero />
-      <PlantCard />
       <AboutUs />
       <Category />
       <Testimonial />

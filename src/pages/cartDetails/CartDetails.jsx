@@ -1,8 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import frame7 from "../../assets/Frame 7.png";
+import { useDispatch } from "react-redux";
 
 const CartDetails = () => {
   const navigation = useNavigate();
+
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+
   return (
     <div className="flex flex-col md:justify-start justify-center mx-auto max-w-6xl py-10 ">
       <img src={frame7} alt="" className="h-40 w-40" />

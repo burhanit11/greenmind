@@ -35,10 +35,7 @@ const Testimonial = () => {
           delay: 1000,
           disableOnInteraction: false,
         }}
-        loop={true}
-        // autoplay={true}
-        cssMode={true}
-        // navigation={true}
+        loop
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
@@ -48,6 +45,20 @@ const Testimonial = () => {
         keyboard={true}
         modules={[Autoplay, Navigation, Pagination, Mousewheel, Keyboard]}
         className="mySwiper"
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 32,
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 32,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+          },
+        }}
       >
         {data.map((_, i) => (
           <SwiperSlide key={i}>
