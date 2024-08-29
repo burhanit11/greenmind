@@ -6,27 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/userSlices/cartSlice";
 
-// const data = [
-//   {
-//     id: 20,
-//     title: "Natural Plants",
-//     img: frame7,
-//     price: 130,
-//   },
-//   {
-//     id: 21,
-//     title: "Natural Plants",
-//     img: frame8,
-//     price: 110,
-//   },
-//   {
-//     id: 22,
-//     title: "Natural Plants",
-//     img: frame9,
-//     price: 180,
-//   },
-// ];
-
 const PlantCard = ({ product }) => {
   const navigation = useNavigate();
 

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import frame7 from "../../assets/Frame 7.png";
-import frame8 from "../../assets/Frame 8.png";
-import frame9 from "../../assets/Frame 9.png";
+// import frame7 from "../../assets/Frame 7.png";
+// import frame8 from "../../assets/Frame 8.png";
+// import frame9 from "../../assets/Frame 9.png";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import { addToCart, removeFromCart } from "../../redux/userSlices/cartSlice";
@@ -24,8 +24,9 @@ import { API_BASE_URL } from "../../utils/constran";
 //   { id: 7, title: "Natural Plants", img: frame7, price: 5 },
 //   { id: 8, title: "Natural Plants", img: frame8, price: 15 },
 // ];
-const Products = () => {
+const AllProducts = () => {
   // const products = useSelector((state) => state.products);
+  const [isLoading, setIsloading] = useState(false);
   const [product, setProdect] = useState([]);
   // const cart = useSelector((state) => state.cart);
   // console.log(cart.length, "???");
@@ -33,37 +34,41 @@ const Products = () => {
 
   useEffect(() => {
     const getProduct = async () => {
+      setIsloading(true);
       try {
-        const res = await axios.get(
-          `${API_BASE_URL}/products/getAllProducts`
-          //    {
-          //   headers: { "Content-Type": "application/json" },
-          // }
-        );
+        const res = await axios.get(`${API_BASE_URL}/products/getAllProducts`);
         setProdect(res.data);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err);
+        setIsloading(false);
       }
     };
 
     getProduct();
+    setIsloading(false);
   }, []);
-  console.log(product, "????????????");
 
+  console.log(product.products, "??");
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
+    console.log(item, "???????????????");
   };
   const handleRemoveToCart = (id) => {
     dispatch(removeFromCart(id));
   };
 
+  console.log(product, "product");
+
+  if (isLoading) {
+    return <h1 className="text-red-500">Loading...</h1>;
+  }
   return (
     <>
       <Header />
       <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8 pt-20">
-        {product.products?.map((item, i) => (
+        {product?.products?.map((item) => (
           <div
-            key={i}
+            key={item._id}
             className="flex flex-col md:justify-start justify-center "
           >
             <img src={item.img} alt="" />
@@ -81,7 +86,7 @@ const Products = () => {
                   {/* <FaArrowRightLong className="mx-2" /> */}
                 </button>
                 <button
-                  onClick={() => handleRemoveToCart(item.id)}
+                  onClick={() => handleRemoveToCart(item._id)}
                   className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
                 >
                   remove to card
@@ -93,10 +98,9 @@ const Products = () => {
         ))}
       </div>
 
-      <h1>{products}</h1>
       <Footer />
     </>
   );
 };
 
-export default Products;
+export default AllProducts;

@@ -61,13 +61,13 @@ const AddCarts = ({ toggleCart }) => {
                       <p>Quantity: {item.quantity}</p>
                       <button
                         className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
-                        onClick={() => dispatch(incrementQuantity(item.id))}
+                        onClick={() => dispatch(incrementQuantity(item._id))}
                       >
                         +
                       </button>
                       <button
                         className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
-                        onClick={() => dispatch(decrementQuantity(item.id))}
+                        onClick={() => dispatch(decrementQuantity(item._id))}
                       >
                         -
                       </button>
@@ -75,14 +75,14 @@ const AddCarts = ({ toggleCart }) => {
                     <div className="flex flex-row gap-2">
                       <button
                         onClick={() =>
-                          navigation(`/products/cartdetails/${item.id}`)
+                          navigation(`/products/cartdetails/${item._id}`)
                         }
                         className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
                       >
                         Details
                       </button>
                       <button
-                        onClick={() => handleRemoveToCart(item.id)}
+                        onClick={() => handleRemoveToCart(item._id)}
                         className="bg-primary hover:bg-primary/80 flex justify-center items-center text-black p-2 rounded-md text-md"
                       >
                         remove to card
