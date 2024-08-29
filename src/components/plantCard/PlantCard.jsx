@@ -1,31 +1,31 @@
 import { FaArrowRightLong } from "react-icons/fa6";
-import frame7 from "../../assets/Frame 7.png";
-import frame8 from "../../assets/Frame 8.png";
-import frame9 from "../../assets/Frame 9.png";
+// import frame7 from "../../assets/Frame 7.png";
+// import frame8 from "../../assets/Frame 8.png";
+// import frame9 from "../../assets/Frame 9.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/userSlices/cartSlice";
 
-const data = [
-  {
-    id: 20,
-    title: "Natural Plants",
-    img: frame7,
-    price: 130,
-  },
-  {
-    id: 21,
-    title: "Natural Plants",
-    img: frame8,
-    price: 110,
-  },
-  {
-    id: 22,
-    title: "Natural Plants",
-    img: frame9,
-    price: 180,
-  },
-];
+// const data = [
+//   {
+//     id: 20,
+//     title: "Natural Plants",
+//     img: frame7,
+//     price: 130,
+//   },
+//   {
+//     id: 21,
+//     title: "Natural Plants",
+//     img: frame8,
+//     price: 110,
+//   },
+//   {
+//     id: 22,
+//     title: "Natural Plants",
+//     img: frame9,
+//     price: 180,
+//   },
+// ];
 
 const PlantCard = ({ product }) => {
   const navigation = useNavigate();
@@ -35,7 +35,6 @@ const PlantCard = ({ product }) => {
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
-  console.log(product?.products, "???????");
   return (
     <div className="max-w-6xl mx-auto py-10 grid md:grid-cols-4  grid-cols-1 gap-8">
       <div className="sm:pt-10  md:mx-0 mx-5">
@@ -52,7 +51,7 @@ const PlantCard = ({ product }) => {
           See More <FaArrowRightLong className="mx-2" />
         </button>
       </div>
-      {product?.products?.map((item, i) => (
+      {product?.products?.slice(0, 3).map((item, i) => (
         <div key={i} className="flex flex-col md:justify-start justify-center ">
           <img src={item.img} alt="" />
           <div className="flex md:justify-between md:mx-0 sm:mx-20 gap-4 justify-center pt-5">
