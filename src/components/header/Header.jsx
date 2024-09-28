@@ -64,9 +64,7 @@ const Header = () => {
     Events.scrollEvent.register("end", function () {
       console.log("end", arguments);
     });
-
     scrollSpy.update();
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       Events.scrollEvent.remove("begin");
@@ -94,7 +92,15 @@ const Header = () => {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 ">
           <div className="inline-flex items-center space-x-6 gap-16 py-4">
-            <span className="text-lg font-bold">Greenmind</span>
+            <span
+              className={
+                isScrolled
+                  ? "text-white text-lg font-bold"
+                  : "text-lg font-bold "
+              }
+            >
+              Greenmind
+            </span>
             <div className="hidden lg:block ">
               <ul className="inline-flex space-x-8">
                 {menuItems.map((item, i) => (
@@ -123,7 +129,7 @@ const Header = () => {
                   } px-[3px] py-[2px] text-sm text-red-600 -mr-7 -mt-4 rounded-full`}
                 >
                   ({cart.length})
-                </span>{" "}
+                </span>
                 <MdOutlineShoppingCart />
               </button>
               <button

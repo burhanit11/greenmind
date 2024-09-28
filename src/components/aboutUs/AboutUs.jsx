@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import vector1 from "../../assets/Vector1.png";
 import vector2 from "../../assets/Vector2.png";
 import vector3 from "../../assets/Vector3.png";
@@ -24,6 +25,12 @@ const data = [
 ];
 
 const AboutUs = () => {
+
+
+  useEffect(()=>{
+
+  },[])
+
   return (
     <div className="max-w-6xl mx-auto pb-10  ">
       <h1 className="text-xl text-center font-extrabold tracking-tight text-black md:text-2xl lg:text-4xl">

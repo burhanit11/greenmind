@@ -1,12 +1,23 @@
 import { FaArrowRightLong } from "react-icons/fa6";
-// import frame7 from "../../assets/Frame 7.png";
-// import frame8 from "../../assets/Frame 8.png";
-// import frame9 from "../../assets/Frame 9.png";
+import frame7 from "../../assets/Frame 7.png";
+import frame8 from "../../assets/Frame 8.png";
+import frame9 from "../../assets/Frame 9.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/userSlices/cartSlice";
 
-const PlantCard = ({ product }) => {
+const data = [
+  {
+    _id: 1,
+    title: "Natural Plants",
+    img: frame7,
+    price: 35,
+  },
+  { _id: 2, title: "Natural Plants", img: frame8, price: 20 },
+  { _id: 3, title: "Natural Plants", img: frame9, price: 50 },
+];
+
+const PlantCard = () => {
   const navigation = useNavigate();
 
   const dispatch = useDispatch();
@@ -30,7 +41,8 @@ const PlantCard = ({ product }) => {
           See More <FaArrowRightLong className="mx-2" />
         </button>
       </div>
-      {product?.products?.slice(0, 3).map((item, i) => (
+      {/* {product?.products?.slice(0, 3). */}
+      {data.slice(0, 3).map((item, i) => (
         <div key={i} className="flex flex-col md:justify-start justify-center ">
           <img src={item.img} alt="" />
           <div className="flex md:justify-between md:mx-0 sm:mx-20 gap-4 justify-center pt-5">

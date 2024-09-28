@@ -11,6 +11,7 @@ const initialState = {
 const authUser = createSlice({
   name: "user",
   initialState,
+
   reducers: {
     addUser: (state, action) => {
       state.isLoggedIn = true;
